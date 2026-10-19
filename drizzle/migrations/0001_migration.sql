@@ -1,0 +1,3 @@
+create policy "admin read dish images" on storage.objects for select to authenticated using (bucket_id = 'dish-images' and public.has_role(auth.uid(),'admin'));
+create policy "admin upload dish images" on storage.objects for insert to authenticated with check (bucket_id = 'dish-images' and public.has_role(auth.uid(),'admin'));
+create policy "admin delete dish images" on storage.objects for delete to authenticated using (bucket_id = 'dish-images' and public.has_role(auth.uid(),'admin'));

@@ -1,7 +1,7 @@
 /* WhatsApp de Rawda Niamey */
 const WHATSAPP_NUMBER = "22788668020";
 
-const dishes = [
+let dishes = [
   {"id": "d0", "category": "Burgers", "name": "King Burger", "description": "Double steak, cheddar, oignons, sauce maison, frites.", "price": 4500, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=850&q=80", "alt": "King Burger"},
   {"id": "d1", "category": "Burgers", "name": "Cheese Burger", "description": "Steak haché, cheddar fondant, salade, tomate, frites.", "price": 3500, "image": "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=850&q=80", "alt": "Cheese Burger"},
   {"id": "d2", "category": "Burgers", "name": "Chicken Burger", "description": "Filet de poulet croustillant, sauce blanche, frites.", "price": 3500, "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=850&q=80", "alt": "Chicken Burger"},
@@ -32,6 +32,26 @@ const dishes = [
   {"id": "d27", "category": "Boissons", "name": "Soda", "description": "Coca-Cola, Fanta, Sprite… 33 cl.", "price": 700, "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=850&q=80", "alt": "Soda"}
 ];
 
+const API_URL = "https://c--8a22b42a-977c-482d-8578-7524ff9325fd-prod.lovable.cloud";
+const API_KEY = "sb_publishable_R_raUA2ZO9_nw4tkBKmk4Q_jS7Mo0lL";
+async function api(path, options = {}) {
+  const res = await fetch(`${API_URL}/rest/v1/${path}`, {...options, headers: {apikey: API_KEY, "Content-Type": "application/json", ...(options.headers||{})}});
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : null;
+  if (!res.ok) throw new Error((data && (data.message || data.hint)) || `Erreur ${res.status}`);
+  return data;
+}
+const rpc = (name, body) => api(`rpc/${name}`, {method: "POST", body: JSON.stringify(body)});
+let currentCategory = "Tous";
+async function loadDishes() {
+  try {
+    const rows = await api("dishes?select=id,category,name,description,price,image_url,available&order=sort_order.asc,created_at.asc");
+    dishes = rows.map(r => ({...r, image: r.image_url || "", alt: r.name}));
+    const all = document.querySelector('[data-category="Tous"] span'); if (all) all.textContent = dishes.length;
+    renderMenu(currentCategory);
+  } catch (e) { console.error("Carte hors ligne", e); }
+}
+
 const cart = new Map();
 const menuGrid = document.querySelector("#menu-grid");
 const cartPanel = document.querySelector("#cart-panel");
@@ -52,13 +72,14 @@ const money = amount => `${amount.toLocaleString("fr-FR")} FCFA`;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
 
 function renderMenu(category = "Tous") {
+  currentCategory = category;
   const visible = category === "Tous" ? dishes : dishes.filter(dish => dish.category === category);
   menuGrid.innerHTML = visible.map((dish, index) => `
     <article class="dish-card" style="animation-delay:${Math.min(index * 55, 275)}ms">
       <div class="dish-image"><img src="${dish.image}" alt="${escapeHTML(dish.alt)}" loading="lazy"><span class="dish-tag">${dish.category}</span></div>
-      <div class="dish-info"><div class="dish-title-row"><h3>${dish.name}</h3><span class="dish-price">${money(dish.price)}</span></div>
-      <p class="dish-description">${dish.description}</p>
-      <button class="add-button" type="button" data-add="${dish.id}" aria-label="Ajouter ${dish.name} à ma commande"><span aria-hidden="true">＋</span>Ajouter à ma commande</button></div>
+      <div class="dish-info"><div class="dish-title-row"><h3>${escapeHTML(dish.name)}</h3><span class="dish-price">${money(dish.price)}</span></div>
+      <p class="dish-description">${escapeHTML(dish.description)}</p>
+      ${dish.available === false ? '<button class="add-button is-soldout" type="button" disabled>Épuisé pour le moment</button>' : `<button class="add-button" type="button" data-add="${dish.id}" aria-label="Ajouter ${escapeHTML(dish.name)} à ma commande"><span aria-hidden="true">＋</span>Ajouter à ma commande</button>`}</div>
     </article>`).join("");
   menuGrid.querySelectorAll("img").forEach(img => img.addEventListener("error", () => {
     img.hidden = true;
@@ -76,7 +97,7 @@ function showToast(message) {
 
 function addToCart(id) {
   const dish = dishes.find(item => item.id === id);
-  if (!dish) return;
+  if (!dish || dish.available === false) return;
   const existing = cart.get(id);
   cart.set(id, {dish, quantity: existing ? existing.quantity + 1 : 1});
   renderCart();
@@ -168,22 +189,54 @@ document.querySelectorAll('input[name="fulfillment"]').forEach(input => {
   });
 });
 
-document.querySelector("#checkout-button").addEventListener("click", () => {
+document.querySelector("#checkout-button").addEventListener("click", async () => {
   if (!cart.size) return;
   const fulfillment = document.querySelector('input[name="fulfillment"]:checked').value;
   const address = deliveryAddress.value.trim();
-  if (fulfillment === "Livraison" && !address) {
-    deliveryAddress.focus();
-    deliveryAddress.reportValidity();
-    return;
-  }
+  const name = document.querySelector("#order-name").value.trim();
+  const phone = document.querySelector("#order-phone").value.trim();
+  if (name.length < 2) { document.querySelector("#order-name").focus(); return showToast("Indiquez votre nom"); }
+  if (phone.length < 8) { document.querySelector("#order-phone").focus(); return showToast("Indiquez votre téléphone"); }
+  if (fulfillment === "Livraison" && !address) { deliveryAddress.focus(); deliveryAddress.reportValidity(); return; }
+  const btn = document.querySelector("#checkout-button");
+  btn.disabled = true;
   const lines = [...cart.values()];
-  const total = lines.reduce((sum, line) => sum + line.dish.price * line.quantity, 0);
-  const recap = lines.map(({dish, quantity}) => `• ${dish.name} x${quantity} — ${money(dish.price * quantity)}`).join("\n");
-  const destination = fulfillment === "Livraison" ? `Livraison à : ${address}` : "Retrait sur place";
-  const message = `Bonjour Rawdat ! Je souhaite commander :\n\n${recap}\n\n${destination}\nTotal estimé : ${money(total)}\n\nMerci de me confirmer la commande et les éventuels frais de livraison.`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  try {
+    const [result] = await rpc("place_order", {_name: name, _phone: phone, _fulfillment: fulfillment, _address: address, _items: lines.map(l => ({id: l.dish.id, quantity: l.quantity}))});
+    const recap = lines.map(({dish, quantity}) => `• ${dish.name} x${quantity} — ${money(dish.price * quantity)}`).join("\n");
+    const destination = fulfillment === "Livraison" ? `Livraison à : ${address}` : "Retrait sur place";
+    const message = `Bonjour Rawda ! Commande n° ${result.code}\n\n${recap}\n\n${destination}\nNom : ${name} · Tél : ${phone}\nTotal : ${money(result.total)}`;
+    localStorage.setItem("rawda-last-order", result.code);
+    cart.clear(); renderCart(); closeCart();
+    document.querySelector("#track-code").value = result.code;
+    showOrderConfirm(result.code, message);
+    trackOrder(result.code);
+  } catch (e) { showToast(e.message || "La commande n’a pas pu être envoyée"); }
+  finally { btn.disabled = false; }
 });
+
+function showOrderConfirm(code, message) {
+  const box = document.querySelector("#order-confirm");
+  box.innerHTML = `<p class="eyebrow">COMMANDE ENREGISTRÉE</p><h3>Merci ! Votre numéro : <b>${code}</b></h3><p>Gardez ce numéro pour suivre votre commande ci-dessous.</p><a class="button button-dark" target="_blank" rel="noopener" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}">Confirmer aussi sur WhatsApp <span>↗</span></a>`;
+  box.hidden = false;
+  document.querySelector("#suivi").scrollIntoView({behavior: "smooth"});
+}
+
+const STEPS = [["recue","Reçue"],["preparation","En préparation"],["prete","Prête"],["livree","Livrée / récupérée"]];
+async function trackOrder(code) {
+  const out = document.querySelector("#track-result");
+  out.innerHTML = "<p>Recherche…</p>";
+  try {
+    const rows = await rpc("track_order", {_code: code});
+    if (!rows.length) { out.innerHTML = "<p class=\"form-feedback is-error\">Aucune commande avec ce numéro.</p>"; return; }
+    const o = rows[0];
+    if (o.status === "annulee") { out.innerHTML = `<p class="form-feedback is-error">La commande ${o.code} a été annulée. Appelez-nous au +227 88 66 80 20.</p>`; return; }
+    const idx = STEPS.findIndex(s => s[0] === o.status);
+    out.innerHTML = `<p class="track-meta">Commande <b>${o.code}</b> · ${escapeHTML(o.fulfillment)} · ${money(o.total)}</p><ol class="track-steps">${STEPS.map((s,i)=>`<li class="${i<=idx?"is-done":""} ${i===idx?"is-current":""}"><span>${i+1}</span>${s[1]}</li>`).join("")}</ol><p class="track-meta">Mis à jour à ${new Date(o.updated_at).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</p>`;
+  } catch (e) { out.innerHTML = `<p class="form-feedback is-error">${escapeHTML(e.message)}</p>`; }
+}
+document.querySelector("#track-form").addEventListener("submit", e => { e.preventDefault(); const c = document.querySelector("#track-code").value.trim(); if (c) trackOrder(c); });
+{ const last = localStorage.getItem("rawda-last-order"); if (last) { document.querySelector("#track-code").value = last; trackOrder(last); } }
 
 menuToggle.addEventListener("click", () => {
   const expanded = menuToggle.getAttribute("aria-expanded") === "true";
@@ -229,12 +282,14 @@ document.querySelector("#contact-form").addEventListener("submit", event => {
 });
 
 renderMenu();
+loadDishes();
 renderCart();
 
 const resaForm=document.querySelector("#reservation-form");
 if(resaForm){resaForm.addEventListener("submit",e=>{e.preventDefault();const fb=document.querySelector("#reservation-feedback");
 if(!resaForm.checkValidity()){fb.textContent="Merci de remplir tous les champs requis.";fb.classList.add("is-error");return;}
 const f=new FormData(resaForm);fb.classList.remove("is-error");
+rpc("create_reservation",{_kind:f.get("type"),_name:f.get("name"),_phone:f.get("phone"),_date:f.get("date"),_time:f.get("time"),_guests:Number(f.get("guests")),_notes:f.get("notes")||""}).then(()=>{fb.textContent="Demande enregistrée ! Nous vous rappelons pour confirmer.";resaForm.reset();}).catch(err=>{fb.textContent=err.message;fb.classList.add("is-error");});
 const msg=`Bonjour Rawda ! ${f.get("type")}\nNom : ${f.get("name")}\nTél : ${f.get("phone")}\nDate : ${f.get("date")} à ${f.get("time")}\nPersonnes : ${f.get("guests")}\nPrécisions : ${f.get("notes")||"-"}`;
 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
-fb.textContent="Votre demande s’ouvre dans WhatsApp.";resaForm.reset();});}
+});}

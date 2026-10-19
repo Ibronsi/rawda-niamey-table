@@ -25,7 +25,7 @@
     </a>
     <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
     <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
-      <a href="#maison">La maison</a><a href="#services">Services</a><a href="#carte">La carte</a><a href="#reservation">Réserver</a><a href="#visite">Nous trouver</a>
+      <a href="#maison">La maison</a><a href="#services">Services</a><a href="#carte">La carte</a><a href="#suivi">Suivi</a><a href="#reservation">Réserver</a><a href="#visite">Nous trouver</a>
       <button class="nav-order" type="button" data-open-cart>Votre commande <span class="cart-count" aria-live="polite">0</span></button>
     </nav>
   </header>
@@ -88,8 +88,17 @@
     </section>
 
 
+
+    <section class="track-section section-pad" id="suivi">
+      <div class="section-kicker">04 — SUIVRE MA COMMANDE</div>
+      <div class="order-confirm" id="order-confirm" hidden></div>
+      <div class="track-grid">
+        <h2>Où en est<br><em>ma commande ?</em></h2>
+        <div><form class="contact-form track-form" id="track-form"><label>Numéro de commande<input id="track-code" placeholder="RW-XXXXX" required></label><button class="button button-dark" type="submit">Suivre <span>→</span></button></form><div id="track-result" class="track-result" aria-live="polite"></div></div>
+      </div>
+    </section>
     <section class="reservation-section section-pad" id="reservation">
-      <div class="contact-copy"><div class="section-kicker">04 — RÉSERVER</div><h2>Une table,<br><em>un gâteau ?</em></h2><p>Réservez une table pour votre groupe ou commandez un gâteau d’anniversaire. Votre demande part directement sur notre WhatsApp.</p></div>
+      <div class="contact-copy"><div class="section-kicker">05 — RÉSERVER</div><h2>Une table,<br><em>un gâteau ?</em></h2><p>Réservez une table pour votre groupe ou commandez un gâteau d’anniversaire. Votre demande est enregistrée et nous vous rappelons pour confirmer.</p></div>
       <form class="contact-form" id="reservation-form" novalidate>
         <div class="field-row"><label>Votre nom<input name="name" required minlength="2" placeholder="Votre nom"></label><label>Téléphone<input name="phone" type="tel" required minlength="8" placeholder="+227 …"></label></div>
         <div class="field-row field-row-3"><label>Type de demande<select name="type"><option>Réservation de table</option><option>Gâteau / pâtisserie sur commande</option><option>Commande pour événement</option></select></label><label>Date<input name="date" type="date" required></label><label>Heure<input name="time" type="time" required></label></div>
@@ -98,7 +107,7 @@
       </form>
     </section>
     <section class="visit-section section-pad" id="visite">
-      <div class="section-kicker">05 — NOUS TROUVER</div>
+      <div class="section-kicker">06 — NOUS TROUVER</div>
       <div class="visit-grid">
         <div class="visit-copy"><h2>On vous<br><em>attend.</em></h2><p class="lead">Un café le matin, un burger à midi, une glace après le match.</p><p>Boulevard du Zarmaganda, juste à côté du Stade Général Seyni Kountché. Sur place, à emporter ou en livraison.</p><a class="button button-dark" href="#carte">Commander à manger <span>↗</span></a></div>
         <div class="visit-details">
@@ -113,7 +122,7 @@
     </section>
 
     <section class="contact-section section-pad" id="contact">
-      <div class="contact-copy"><div class="section-kicker">06 — UN PETIT MOT ?</div><h2>On vous <em>écoute.</em></h2><p>Une question sur la carte, une envie particulière ou simplement bonjour ? Laissez-nous un mot.</p></div>
+      <div class="contact-copy"><div class="section-kicker">07 — UN PETIT MOT ?</div><h2>On vous <em>écoute.</em></h2><p>Une question sur la carte, une envie particulière ou simplement bonjour ? Laissez-nous un mot.</p></div>
       <form class="contact-form" id="contact-form" novalidate>
         <div class="field-row"><label>Votre nom<input name="name" autocomplete="name" required minlength="2" placeholder="Comment vous appelez-vous ?"></label><label>Votre téléphone<input name="phone" type="tel" autocomplete="tel" required minlength="8" maxlength="20" placeholder="+227 …"></label></div>
         <label>Votre message<textarea name="message" rows="4" required minlength="8" placeholder="Dites-nous tout…"></textarea></label>
@@ -124,7 +133,7 @@
 
   <footer class="site-footer">
     <a class="brand footer-brand" href="#accueil"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 42 42"><path d="M21 4c-1 8-8 11-8 19a8 8 0 0 0 16 0c0-8-7-11-8-19Z"/><path d="M21 18c-4 4-4 10 0 13 4-3 4-9 0-13Z"/></svg></span><span><strong>rawda</strong><small>BOULANGERIE · RESTAURANT · GLACIER</small></span></a>
-    <p>Boulangerie · Pâtisserie · Restaurant · Café · Glacier<br>Bd du Zarmaganda, Niamey.</p><a class="footer-top" href="#accueil">RETOUR EN HAUT ↑</a><small class="copyright">© RAWDA NIAMEY — TOUS DROITS RÉSERVÉS</small>
+    <p>Boulangerie · Pâtisserie · Restaurant · Café · Glacier<br>Bd du Zarmaganda, Niamey.</p><a class="footer-top" href="/admin">ESPACE GÉRANT</a><a class="footer-top" href="#accueil">RETOUR EN HAUT ↑</a><small class="copyright">© RAWDA NIAMEY — TOUS DROITS RÉSERVÉS</small>
   </footer>
 
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
@@ -133,11 +142,11 @@
     <div class="cart-items" id="cart-items"></div>
     <div class="cart-empty" id="cart-empty"><span>✳</span><h3>Votre panier est encore léger.</h3><p>La bonne nouvelle ? Il ne demande qu’à être rempli.</p><button class="text-link" type="button" data-close-cart>Explorer la carte <span>→</span></button></div>
     <div class="cart-checkout" id="cart-checkout" hidden>
-      <fieldset class="fulfillment"><legend>Comment vous régale-t-on ?</legend><label><input type="radio" name="fulfillment" value="Retrait sur place" checked><span>Retrait sur place</span></label><label><input type="radio" name="fulfillment" value="Livraison"><span>Livraison</span></label></fieldset>
+      <label class="address-field">Votre nom<input id="order-name" type="text" autocomplete="name" placeholder="Votre nom" required></label><label class="address-field">Téléphone<input id="order-phone" type="tel" autocomplete="tel" placeholder="+227 …" required></label><fieldset class="fulfillment"><legend>Comment vous régale-t-on ?</legend><label><input type="radio" name="fulfillment" value="Retrait sur place" checked><span>Retrait sur place</span></label><label><input type="radio" name="fulfillment" value="Livraison"><span>Livraison</span></label></fieldset>
       <label class="address-field" id="address-wrap" hidden>Adresse de livraison<input id="delivery-address" type="text" autocomplete="street-address" placeholder="Quartier, rue, repère…" required></label>
-      <div class="cart-total"><span>Total estimé</span><strong id="cart-total">0 FCFA</strong></div>
+      <div class="cart-total"><span>Total</span><strong id="cart-total">0 FCFA</strong></div>
       <p class="checkout-note">Les frais de livraison éventuels seront confirmés avec le restaurant.</p>
-      <button class="button button-dark checkout-button" type="button" id="checkout-button">Envoyer la commande <span>↗</span></button>
+      <button class="button button-dark checkout-button" type="button" id="checkout-button">Valider la commande <span>↗</span></button>
       <button class="clear-cart" id="clear-cart" type="button">Vider le panier</button>
     </div>
   </aside>
