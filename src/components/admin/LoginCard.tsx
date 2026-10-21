@@ -29,7 +29,7 @@ export function LoginCard() {
 
   async function forgot() {
     const email = (document.querySelector<HTMLInputElement>("#admin-email")?.value || "").trim();
-    if (!email) return toast.error("Saisissez d’abord votre email");
+    if (!email) return void toast.error("Saisissez d’abord votre email");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });

@@ -21,7 +21,7 @@ export function MenuPanel() {
 
   async function toggle(d: Dish) {
     const { error } = await supabase.from("dishes").update({ available: !d.available }).eq("id", d.id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     toast.success(d.available ? `${d.name} marqué épuisé` : `${d.name} de nouveau disponible`);
     load();
   }
@@ -75,14 +75,14 @@ function DishForm({ dish, count, onClose, onSaved }: { dish: Dish | null; count:
   const [busy, setBusy] = useState(false);
 
   async function upload(file: File) {
-    if (file.size > 5 * 1024 * 1024) return toast.error("Photo trop lourde (5 Mo max)");
+    if (file.size > 5 * 1024 * 1024) return void toast.error("Photo trop lourde (5 Mo max)");
     setBusy(true);
     const path = `${crypto.randomUUID()}.${file.name.split(".").pop() || "jpg"}`;
     const { error } = await supabase.storage.from("dish-images").upload(path, file, { contentType: file.type });
-    if (error) { setBusy(false); return toast.error(error.message); }
+    if (error) { setBusy(false); return void toast.error(error.message); }
     const { data, error: e2 } = await supabase.storage.from("dish-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
     setBusy(false);
-    if (e2 || !data) return toast.error(e2?.message ?? "Erreur photo");
+    if (e2 || !data) return void toast.error(e2?.message ?? "Erreur photo");
     setImage(data.signedUrl);
     toast.success("Photo ajoutée");
   }
@@ -98,13 +98,13 @@ function DishForm({ dish, count, onClose, onSaved }: { dish: Dish | null; count:
       image_url: image || null,
       available: f.get("available") === "on",
     };
-    if (!row.name) return toast.error("Le nom est obligatoire");
+    if (!row.name) return void toast.error("Le nom est obligatoire");
     setBusy(true);
     const { error } = dish
       ? await supabase.from("dishes").update(row).eq("id", dish.id)
       : await supabase.from("dishes").insert({ ...row, sort_order: count + 1 });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     toast.success("Carte mise à jour");
     onSaved();
   }
