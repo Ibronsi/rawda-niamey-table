@@ -16,13 +16,9 @@ export function LoginCard() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) toast.error("Email ou mot de passe incorrect");
     } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { emailRedirectTo: `${window.location.origin}/admin` },
-      });
+      const { error } = await supabase.auth.signUp({ email, password });
       if (error) toast.error(error.message);
-      else toast.success("Compte créé. Confirmez votre email puis connectez-vous.");
+      else toast.success("Compte créé. Vous êtes connecté.");
     }
     setBusy(false);
   }
