@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -108,4 +108,4 @@ function Shell({ children, right }: { children: React.ReactNode; right?: React.R
   );
 }
 
-export type { FormEvent };
+
