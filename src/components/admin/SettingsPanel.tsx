@@ -44,7 +44,12 @@ export function SettingsPanel() {
   }, [dirty]);
   const update = <K extends keyof SiteSettings>(key: K, value: SiteSettings[K]) => setSettings(s => ({ ...s, [key]: value }));
   function showPreview() { frame.current?.contentWindow?.postMessage({ type: 'rawda-settings-preview', settings }, window.location.origin); }
-  useEffect(() => { if (preview) showPreview(); }, [settings, preview]);
+  useEffect(() => {
+    if (preview) showPreview();
+    const ready = (event: MessageEvent) => { if (event.origin === window.location.origin && event.source === frame.current?.contentWindow && event.data?.type === 'rawda-settings-ready') showPreview(); };
+    window.addEventListener('message', ready);
+    return () => window.removeEventListener('message', ready);
+  }, [settings, preview]);
 
   async function save() {
     const clean = normalizeSettings(settings);
@@ -95,7 +100,7 @@ export function SettingsPanel() {
       <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">{([['paper','Fond'],['ink','Texte'],['primary','Couleur principale'],['accent','Accent']] as const).map(([key,label]) => <label key={key} className="text-sm">{label}<input aria-label={label} type="color" value={settings[key]} onChange={e => update(key,e.target.value)} className="mt-2 block h-10 w-full cursor-pointer rounded border border-input" /></label>)}</div>
     </div>}
     {view === 'texts' && <div><label className="text-sm">Partie du site<select className={field} value={group} onChange={e => setGroup(e.target.value)}>{[...new Set(catalog.map(c => c.group))].map(g => <option key={g}>{g}</option>)}</select></label><div className="mt-5 space-y-5">{catalog.filter(c => c.group === group).map(c => <label key={c.key} className="block text-sm">{c.label}<textarea className={field} rows={c.value.length > 100 ? 3 : 2} value={settings.texts[c.key] ?? c.value} onChange={e => update('texts',{ ...settings.texts,[c.key]:e.target.value })} /><Button variant="link" size="sm" onClick={() => { const texts = {...settings.texts}; delete texts[c.key]; update('texts',texts); }}>Rétablir ce texte</Button></label>)}</div></div>}
-    {view === 'sections' && <div className="space-y-5"><label className="flex items-center gap-3 text-sm"><input type="checkbox" checked={settings.bannerVisible} onChange={e => update('bannerVisible',e.target.checked)} />Afficher la bannière du haut</label>{[['maison','La maison'],['services','Services'],['feature','Le fournil'],['visite','Adresse & carte'],['contact','Contact']].map(([key,label]) => <label key={key} className="flex items-center gap-3 text-sm"><input type="checkbox" checked={settings.sections[key] !== false} onChange={e => update('sections',{...settings.sections,[key]:e.target.checked})} />Afficher {label}</label>)}</div>}
+    {view === 'sections' && <div className="space-y-5"><label className="flex items-center gap-3 text-sm"><input type="checkbox" checked={settings.bannerVisible} onChange={e => update('bannerVisible',e.target.checked)} />Afficher la bannière du haut</label>{([['maison','La maison'],['services','Services'],['feature','Le fournil'],['visite','Adresse & carte'],['contact','Contact']] as const).map(([key,label]) => <label key={key} className="flex items-center gap-3 text-sm"><input type="checkbox" checked={settings.sections[key] !== false} onChange={e => update('sections',{...settings.sections,[key]:e.target.checked})} />Afficher {label}</label>)}</div>}
     {view === 'account' && <PasswordForm />}
     </div>
     {dirty && <div className="mt-8 flex flex-wrap gap-3 border-t border-border pt-5"><Button onClick={save} disabled={busy || uploading}><Save />Enregistrer les changements</Button><Button variant="ghost" onClick={() => { if (confirm('Annuler les modifications non enregistrées ?')) setSettings(saved); }}><RotateCcw />Annuler les changements</Button></div>}

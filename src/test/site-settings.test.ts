@@ -9,6 +9,6 @@ describe('paramètres modifiables du site', () => {
   });
   it('conserve la bannière masquée', () => expect(normalizeSettings({bannerVisible:false}).bannerVisible).toBe(false));
   it('conserve la police choisie', () => expect(normalizeSettings({headingFont:'Lora'}).headingFont).toBe('Lora'));
-  it('ne traite pas un texte comme du code HTML', () => expect(normalizeSettings({texts:{text_001:'<script>alert(1)</script>'}}).texts.text_001).toBe('<script>alert(1)</script>'));
+  it('ne traite pas un texte comme du code HTML', () => expect(normalizeSettings({texts:{text_001:'<script>alert(1)</script>'}}).texts['text_001']).toBe('<script>alert(1)</script>'));
   it('refuse les images exécutables', () => expect(safeImage('javascript:alert(1)')).toBe(''));
 });

@@ -27,17 +27,18 @@ export function applySettings(input) {
     document.querySelectorAll(`a[href="#${key}"]`).forEach(n => n.hidden = !visible);
   }
   // Contact values are synchronized unless that particular text is explicitly customized.
+  const setText = (node, value) => { const leaf = node.querySelector('[data-site-text]'); (leaf || node).textContent = value; };
   const phoneLink = document.querySelector('a[href^="tel:"]');
-  phoneLink.href = `tel:${s.phone.replace(/[^+\d]/g,'')}`; phoneLink.textContent = s.phone;
+  phoneLink.href = `tel:${s.phone.replace(/[^+\d]/g,'')}`; setText(phoneLink, s.phone);
   document.querySelectorAll('a[href^="https://wa.me/"]').forEach(n => n.href = `https://wa.me/${s.whatsapp}`);
   const details = document.querySelectorAll('.detail-block');
-  details[0].querySelector('strong').textContent = s.address;
-  details[0].querySelector('p').textContent = '';
-  details[1].querySelector('strong').textContent = s.hours;
-  details[1].querySelector('p').textContent = '';
+  setText(details[0].querySelector('strong'), s.address);
+  setText(details[1].querySelector('strong'), s.hours);
+  details[0].querySelector('p').hidden = !Object.keys(s.texts).some(key => details[0].querySelector(`p [data-site-text="${key}"]`));
+  details[1].querySelector('p').hidden = !Object.keys(s.texts).some(key => details[1].querySelector(`p [data-site-text="${key}"]`));
   document.querySelector('.map-frame').src = `https://www.google.com/maps?q=${encodeURIComponent(s.address)}&output=embed`;
   document.querySelector('.map-frame').title = `Carte ${s.name}`;
-  document.querySelector('.announcement > span:last-child').textContent = `${s.hours} · ☎ ${s.phone}`;
+  setText(document.querySelector('.announcement > span:last-child'), `${s.hours} · ☎ ${s.phone}`);
   for (const [key, text] of Object.entries(s.texts)) document.querySelectorAll(`[data-site-text="${key}"]`).forEach(n => n.textContent = text);
   document.title = s.name;
   for (const [selector, value] of [['meta[name="description"]',s.description],['meta[property="og:title"]',s.name],['meta[property="og:description"]',s.description],['meta[property="og:type"]','website'],['meta[name="twitter:card"]','summary_large_image']]) {
@@ -46,6 +47,6 @@ export function applySettings(input) {
     node.content = value;
   }
   const cover = document.querySelector('.hero-photo img').src;
-  if (cover.startsWith('https://')) for (const attr of ['og:image','twitter:image']) { const meta = document.createElement('meta'); meta.setAttribute(attr.startsWith('og:') ? 'property':'name', attr); meta.content = cover; document.head.append(meta); }
+  if (cover.startsWith('https://')) for (const attr of ['og:image','twitter:image']) { const type = attr.startsWith('og:') ? 'property':'name'; let meta = document.querySelector(`meta[${type}="${attr}"]`); if (!meta) { meta = document.createElement('meta'); meta.setAttribute(type, attr); document.head.append(meta); } meta.content = cover; }
   return s;
 }

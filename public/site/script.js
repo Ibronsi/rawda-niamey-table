@@ -12,6 +12,7 @@ async function loadSiteSettings() {
       if (event.origin !== location.origin || event.source !== window.parent || event.data?.type !== 'rawda-settings-preview') return;
       applySettings(event.data.settings);
     });
+    window.parent.postMessage({ type: 'rawda-settings-ready' }, location.origin);
   } catch (e) { console.error('Paramètres indisponibles', e); }
 }
 
