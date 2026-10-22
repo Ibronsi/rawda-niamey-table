@@ -1,0 +1,23 @@
+.brand { min-width: 0; }
+.brand > span:last-child { min-width: 0; }
+.brand strong { max-width: 260px; overflow-wrap: anywhere; font-size: 24px; }
+.brand small { max-width: 260px; overflow-wrap: anywhere; }
+.brand-mark img { width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.hero.custom-background { background-size: cover; background-position: center; }
+.hero.custom-background .hero-copy { background: var(--paper); padding: 24px; }
+[data-site-text] { overflow-wrap: anywhere; }
+body { font-size: calc(14px * var(--site-font-scale, 1)); }
+.hero-intro, .intro-body p, .visit-copy p, .contact-copy p, .service-card p { font-size: calc(13px * var(--site-font-scale, 1)); }
+.hero h1 { font-size: 80px; letter-spacing: 0; }
+.brand strong { letter-spacing: 0; }
+.announcement { flex-wrap: wrap; }
+.site-footer .footer-top { grid-row: auto; }
+@media(max-width:650px) {
+  .brand strong { max-width: 245px; font-size: 22px; }
+  .brand small { max-width: 245px; font-size: 7px; }
+  .hero h1 { font-size: 56px; }
+  .hero-copy { min-height: 0; }
+  .hero.custom-background .hero-copy { margin-top: 24px; }
+  .hero-actions { flex-wrap: wrap; }
+  .announcement span:last-child { display: block; }
+}

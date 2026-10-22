@@ -1,0 +1,602 @@
+[
+  {
+    "key": "text_000",
+    "group": "Bannière",
+    "label": "À côté du Stade Seyni Kountché · Niamey",
+    "value": "À côté du Stade Seyni Kountché · Niamey"
+  },
+  {
+    "key": "text_001",
+    "group": "Bannière",
+    "label": "Ouvert tous les jours · 7 h — 23 h · ☎ +227 88 66 80 20",
+    "value": "Ouvert tous les jours · 7 h — 23 h · ☎ +227 88 66 80 20"
+  },
+  {
+    "key": "text_002",
+    "group": "Navigation",
+    "label": "La maison",
+    "value": "La maison"
+  },
+  {
+    "key": "text_003",
+    "group": "Navigation",
+    "label": "Services",
+    "value": "Services"
+  },
+  {
+    "key": "text_004",
+    "group": "Navigation",
+    "label": "La carte",
+    "value": "La carte"
+  },
+  {
+    "key": "text_005",
+    "group": "Navigation",
+    "label": "Suivi",
+    "value": "Suivi"
+  },
+  {
+    "key": "text_006",
+    "group": "Navigation",
+    "label": "Réserver",
+    "value": "Réserver"
+  },
+  {
+    "key": "text_007",
+    "group": "Navigation",
+    "label": "Nous trouver",
+    "value": "Nous trouver"
+  },
+  {
+    "key": "text_008",
+    "group": "accueil",
+    "label": "NIAMEY · BD DU ZARMAGANDA",
+    "value": " NIAMEY · BD DU ZARMAGANDA"
+  },
+  {
+    "key": "text_009",
+    "group": "accueil",
+    "label": "Du pain chaud",
+    "value": "Du pain chaud"
+  },
+  {
+    "key": "text_010",
+    "group": "accueil",
+    "label": "au burger,",
+    "value": "au burger,"
+  },
+  {
+    "key": "text_011",
+    "group": "accueil",
+    "label": "tout est Rawda.",
+    "value": "tout est Rawda."
+  },
+  {
+    "key": "text_012",
+    "group": "accueil",
+    "label": "Boulangerie, pâtisserie, restaurant fast-food, café et glacier : ",
+    "value": "Boulangerie, pâtisserie, restaurant fast-food, café et glacier : le rendez-vous gourmand de Niamey, du petit-déjeuner jusqu’au dîner."
+  },
+  {
+    "key": "text_013",
+    "group": "accueil",
+    "label": "Découvrir la carte",
+    "value": "Découvrir la carte "
+  },
+  {
+    "key": "text_014",
+    "group": "accueil",
+    "label": "Notre adresse",
+    "value": "Notre adresse "
+  },
+  {
+    "key": "text_015",
+    "group": "accueil",
+    "label": "Pain et viennoiseries",
+    "value": "Pain et viennoiseries"
+  },
+  {
+    "key": "text_016",
+    "group": "accueil",
+    "label": "frais chaque jour.",
+    "value": "frais chaque jour."
+  },
+  {
+    "key": "text_017",
+    "group": "accueil",
+    "label": "FAIT AVEC SOIN",
+    "value": "FAIT AVEC SOIN"
+  },
+  {
+    "key": "text_018",
+    "group": "accueil",
+    "label": "À NIAMEY",
+    "value": "À NIAMEY"
+  },
+  {
+    "key": "text_019",
+    "group": "accueil",
+    "label": "Le goût des bonnes choses",
+    "value": "Le goût des bonnes choses"
+  },
+  {
+    "key": "text_020",
+    "group": "accueil",
+    "label": "FAST-FOOD · PÂTISSERIE · GLACES",
+    "value": "FAST-FOOD · PÂTISSERIE · GLACES"
+  },
+  {
+    "key": "text_021",
+    "group": "accueil",
+    "label": "13°30′N 2°07′E",
+    "value": "13°30′N 2°07′E"
+  },
+  {
+    "key": "text_022",
+    "group": "accueil",
+    "label": "BOULANGERIE · RESTAURANT · CAFÉ · GLACIER",
+    "value": "BOULANGERIE · RESTAURANT · CAFÉ · GLACIER"
+  },
+  {
+    "key": "text_023",
+    "group": "accueil",
+    "label": "FAIT POUR ÊTRE PARTAGÉ ↓",
+    "value": "FAIT POUR ÊTRE PARTAGÉ ↓"
+  },
+  {
+    "key": "text_024",
+    "group": "maison",
+    "label": "01 — L’ESPRIT RAWDA",
+    "value": "01 — L’ESPRIT RAWDA"
+  },
+  {
+    "key": "text_025",
+    "group": "maison",
+    "label": "Plein dedans,",
+    "value": "Plein dedans,"
+  },
+  {
+    "key": "text_026",
+    "group": "maison",
+    "label": "plein dehors.",
+    "value": "plein dehors."
+  },
+  {
+    "key": "text_027",
+    "group": "maison",
+    "label": "Collé au Stade Seyni Kountché, Rawda est l’une des adresses les p",
+    "value": "Collé au Stade Seyni Kountché, Rawda est l’une des adresses les plus fréquentées de Niamey."
+  },
+  {
+    "key": "text_028",
+    "group": "maison",
+    "label": "Le matin, on vient pour le pain chaud, les croissants et le café.",
+    "value": "Le matin, on vient pour le pain chaud, les croissants et le café. À midi et le soir, pour les burgers, les pizzas, les shawarmas et le poulet. Et à toute heure, pour une glace bien fraîche. Salle climatisée, terrasse et parking : on s’installe sans se presser."
+  },
+  {
+    "key": "text_029",
+    "group": "maison",
+    "label": "Nos services",
+    "value": "Nos services "
+  },
+  {
+    "key": "text_030",
+    "group": "maison",
+    "label": "Fait maison chaque jour",
+    "value": "Fait maison chaque jour"
+  },
+  {
+    "key": "text_031",
+    "group": "maison",
+    "label": "Pain, viennoiseries et pâtisseries sortis de notre fournil.",
+    "value": "Pain, viennoiseries et pâtisseries sortis de notre fournil."
+  },
+  {
+    "key": "text_032",
+    "group": "maison",
+    "label": "Rapide et généreux",
+    "value": "Rapide et généreux"
+  },
+  {
+    "key": "text_033",
+    "group": "maison",
+    "label": "Des portions qui rassasient, servies sans attendre.",
+    "value": "Des portions qui rassasient, servies sans attendre."
+  },
+  {
+    "key": "text_034",
+    "group": "maison",
+    "label": "Pour toute la famille",
+    "value": "Pour toute la famille"
+  },
+  {
+    "key": "text_035",
+    "group": "maison",
+    "label": "Climatisation, terrasse et parking.",
+    "value": "Climatisation, terrasse et parking."
+  },
+  {
+    "key": "text_036",
+    "group": "services",
+    "label": "02 — NOS SERVICES",
+    "value": "02 — NOS SERVICES"
+  },
+  {
+    "key": "text_037",
+    "group": "services",
+    "label": "Cinq maisons",
+    "value": "Cinq maisons"
+  },
+  {
+    "key": "text_038",
+    "group": "services",
+    "label": "sous un même toit.",
+    "value": "sous un même toit."
+  },
+  {
+    "key": "text_039",
+    "group": "services",
+    "label": "Boulangerie",
+    "value": "Boulangerie"
+  },
+  {
+    "key": "text_040",
+    "group": "services",
+    "label": "Baguettes, pains spéciaux et viennoiseries, chauds dès le matin.",
+    "value": "Baguettes, pains spéciaux et viennoiseries, chauds dès le matin."
+  },
+  {
+    "key": "text_041",
+    "group": "services",
+    "label": "Pâtisserie",
+    "value": "Pâtisserie"
+  },
+  {
+    "key": "text_042",
+    "group": "services",
+    "label": "Gâteaux, tartes, éclairs et gâteaux d’anniversaire sur commande.",
+    "value": "Gâteaux, tartes, éclairs et gâteaux d’anniversaire sur commande."
+  },
+  {
+    "key": "text_043",
+    "group": "services",
+    "label": "Restaurant fast-food",
+    "value": "Restaurant fast-food"
+  },
+  {
+    "key": "text_044",
+    "group": "services",
+    "label": "Burgers, pizzas, shawarmas, sandwichs et poulet, sur place ou à e",
+    "value": "Burgers, pizzas, shawarmas, sandwichs et poulet, sur place ou à emporter."
+  },
+  {
+    "key": "text_045",
+    "group": "services",
+    "label": "Café",
+    "value": "Café"
+  },
+  {
+    "key": "text_046",
+    "group": "services",
+    "label": "Expresso, cappuccino, thé et petit-déjeuner complet.",
+    "value": "Expresso, cappuccino, thé et petit-déjeuner complet."
+  },
+  {
+    "key": "text_047",
+    "group": "services",
+    "label": "Glacier",
+    "value": "Glacier"
+  },
+  {
+    "key": "text_048",
+    "group": "services",
+    "label": "Glaces, coupes, milkshakes et jus frais pour les journées chaudes",
+    "value": "Glaces, coupes, milkshakes et jus frais pour les journées chaudes."
+  },
+  {
+    "key": "text_049",
+    "group": "services",
+    "label": "Livraison & événements",
+    "value": "Livraison & événements"
+  },
+  {
+    "key": "text_050",
+    "group": "services",
+    "label": "Livraison dans Niamey, commandes pour anniversaires, baptêmes et ",
+    "value": "Livraison dans Niamey, commandes pour anniversaires, baptêmes et réunions."
+  },
+  {
+    "key": "text_051",
+    "group": "carte",
+    "label": "03 — LA CARTE",
+    "value": "03 — LA CARTE"
+  },
+  {
+    "key": "text_052",
+    "group": "carte",
+    "label": "La carte",
+    "value": "La carte "
+  },
+  {
+    "key": "text_053",
+    "group": "carte",
+    "label": "Rawda",
+    "value": "Rawda"
+  },
+  {
+    "key": "text_054",
+    "group": "carte",
+    "label": "Du croissant du matin à la pizza du soir. Ajoutez vos envies au p",
+    "value": "Du croissant du matin à la pizza du soir. Ajoutez vos envies au panier et envoyez la commande par WhatsApp."
+  },
+  {
+    "key": "text_055",
+    "group": "carte",
+    "label": "Prix indicatifs en FCFA, à confirmer au restaurant. Une question ",
+    "value": "Prix indicatifs en FCFA, à confirmer au restaurant. Une question sur les ingrédients ? "
+  },
+  {
+    "key": "text_056",
+    "group": "carte",
+    "label": "Écrivez-nous.",
+    "value": "Écrivez-nous."
+  },
+  {
+    "key": "text_057",
+    "group": "Fournil",
+    "label": "LE FOURNIL RAWDA",
+    "value": "LE FOURNIL RAWDA"
+  },
+  {
+    "key": "text_058",
+    "group": "Fournil",
+    "label": "Chaud, croustillant,",
+    "value": "Chaud, croustillant,"
+  },
+  {
+    "key": "text_059",
+    "group": "Fournil",
+    "label": "dès 7 heures.",
+    "value": "dès 7 heures."
+  },
+  {
+    "key": "text_060",
+    "group": "Fournil",
+    "label": "Chaque matin, nos boulangers préparent baguettes, croissants et p",
+    "value": "Chaque matin, nos boulangers préparent baguettes, croissants et pains au chocolat. Passez tôt : ça part vite !"
+  },
+  {
+    "key": "text_061",
+    "group": "Fournil",
+    "label": "Voir la boulangerie",
+    "value": "Voir la boulangerie "
+  },
+  {
+    "key": "text_062",
+    "group": "suivi",
+    "label": "04 — SUIVRE MA COMMANDE",
+    "value": "04 — SUIVRE MA COMMANDE"
+  },
+  {
+    "key": "text_063",
+    "group": "suivi",
+    "label": "Où en est",
+    "value": "Où en est"
+  },
+  {
+    "key": "text_064",
+    "group": "suivi",
+    "label": "ma commande ?",
+    "value": "ma commande ?"
+  },
+  {
+    "key": "text_065",
+    "group": "reservation",
+    "label": "05 — RÉSERVER",
+    "value": "05 — RÉSERVER"
+  },
+  {
+    "key": "text_066",
+    "group": "reservation",
+    "label": "Une table,",
+    "value": "Une table,"
+  },
+  {
+    "key": "text_067",
+    "group": "reservation",
+    "label": "un gâteau ?",
+    "value": "un gâteau ?"
+  },
+  {
+    "key": "text_068",
+    "group": "reservation",
+    "label": "Réservez une table pour votre groupe ou commandez un gâteau d’ann",
+    "value": "Réservez une table pour votre groupe ou commandez un gâteau d’anniversaire. Votre demande est enregistrée et nous vous rappelons pour confirmer."
+  },
+  {
+    "key": "text_069",
+    "group": "visite",
+    "label": "06 — NOUS TROUVER",
+    "value": "06 — NOUS TROUVER"
+  },
+  {
+    "key": "text_070",
+    "group": "visite",
+    "label": "On vous",
+    "value": "On vous"
+  },
+  {
+    "key": "text_071",
+    "group": "visite",
+    "label": "attend.",
+    "value": "attend."
+  },
+  {
+    "key": "text_072",
+    "group": "visite",
+    "label": "Un café le matin, un burger à midi, une glace après le match.",
+    "value": "Un café le matin, un burger à midi, une glace après le match."
+  },
+  {
+    "key": "text_073",
+    "group": "visite",
+    "label": "Boulevard du Zarmaganda, juste à côté du Stade Général Seyni Koun",
+    "value": "Boulevard du Zarmaganda, juste à côté du Stade Général Seyni Kountché. Sur place, à emporter ou en livraison."
+  },
+  {
+    "key": "text_074",
+    "group": "visite",
+    "label": "Commander à manger",
+    "value": "Commander à manger "
+  },
+  {
+    "key": "text_075",
+    "group": "visite",
+    "label": "ADRESSE",
+    "value": "ADRESSE"
+  },
+  {
+    "key": "text_076",
+    "group": "visite",
+    "label": "Bd du Zarmaganda",
+    "value": "Bd du Zarmaganda"
+  },
+  {
+    "key": "text_077",
+    "group": "visite",
+    "label": "À côté du Stade Seyni Kountché",
+    "value": "À côté du Stade Seyni Kountché"
+  },
+  {
+    "key": "text_078",
+    "group": "visite",
+    "label": "Niamey, Niger",
+    "value": "Niamey, Niger"
+  },
+  {
+    "key": "text_079",
+    "group": "visite",
+    "label": "HORAIRES",
+    "value": "HORAIRES"
+  },
+  {
+    "key": "text_080",
+    "group": "visite",
+    "label": "Tous les jours",
+    "value": "Tous les jours"
+  },
+  {
+    "key": "text_081",
+    "group": "visite",
+    "label": "7 h — 23 h",
+    "value": "7 h — 23 h"
+  },
+  {
+    "key": "text_082",
+    "group": "visite",
+    "label": "Boulangerie dès l’ouverture",
+    "value": "Boulangerie dès l’ouverture"
+  },
+  {
+    "key": "text_083",
+    "group": "visite",
+    "label": "TÉLÉPHONE",
+    "value": "TÉLÉPHONE"
+  },
+  {
+    "key": "text_084",
+    "group": "visite",
+    "label": "Commandes et réservations",
+    "value": "Commandes et réservations"
+  },
+  {
+    "key": "text_085",
+    "group": "visite",
+    "label": "WHATSAPP",
+    "value": "WHATSAPP"
+  },
+  {
+    "key": "text_086",
+    "group": "visite",
+    "label": "Nous écrire",
+    "value": "Nous écrire "
+  },
+  {
+    "key": "text_087",
+    "group": "visite",
+    "label": "Réponse rapide",
+    "value": "Réponse rapide"
+  },
+  {
+    "key": "text_088",
+    "group": "visite",
+    "label": "Livraison dans Niamey",
+    "value": "Livraison dans Niamey"
+  },
+  {
+    "key": "text_089",
+    "group": "visite",
+    "label": "NIAMEY",
+    "value": "NIAMEY"
+  },
+  {
+    "key": "text_090",
+    "group": "visite",
+    "label": "13°30′N · 2°07′E",
+    "value": "13°30′N · 2°07′E"
+  },
+  {
+    "key": "text_091",
+    "group": "contact",
+    "label": "07 — UN PETIT MOT ?",
+    "value": "07 — UN PETIT MOT ?"
+  },
+  {
+    "key": "text_092",
+    "group": "contact",
+    "label": "On vous",
+    "value": "On vous "
+  },
+  {
+    "key": "text_093",
+    "group": "contact",
+    "label": "écoute.",
+    "value": "écoute."
+  },
+  {
+    "key": "text_094",
+    "group": "contact",
+    "label": "Une question sur la carte, une envie particulière ou simplement b",
+    "value": "Une question sur la carte, une envie particulière ou simplement bonjour ? Laissez-nous un mot."
+  },
+  {
+    "key": "text_095",
+    "group": "Pied de page",
+    "label": "Boulangerie · Pâtisserie · Restaurant · Café · Glacier",
+    "value": "Boulangerie · Pâtisserie · Restaurant · Café · Glacier"
+  },
+  {
+    "key": "text_096",
+    "group": "Pied de page",
+    "label": "Bd du Zarmaganda, Niamey.",
+    "value": "Bd du Zarmaganda, Niamey."
+  },
+  {
+    "key": "text_097",
+    "group": "Pied de page",
+    "label": "ESPACE GÉRANT",
+    "value": "ESPACE GÉRANT"
+  },
+  {
+    "key": "text_098",
+    "group": "Pied de page",
+    "label": "RETOUR EN HAUT ↑",
+    "value": "RETOUR EN HAUT ↑"
+  },
+  {
+    "key": "text_099",
+    "group": "Pied de page",
+    "label": "© RAWDA NIAMEY — TOUS DROITS RÉSERVÉS",
+    "value": "© RAWDA NIAMEY — TOUS DROITS RÉSERVÉS"
+  }
+]

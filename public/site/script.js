@@ -1,5 +1,20 @@
 /* WhatsApp de Rawda Niamey */
-const WHATSAPP_NUMBER = "22788668020";
+let WHATSAPP_NUMBER = "22788668020";
+let siteName = "Rawda Niamey";
+let sitePhone = "+227 88 66 80 20";
+async function loadSiteSettings() {
+  try {
+    const { applySettings } = await import('./settings.js');
+    const rows = await api('site_settings?select=settings&id=eq.1');
+    const settings = applySettings(rows[0]?.settings || {});
+    WHATSAPP_NUMBER = settings.whatsapp; siteName = settings.name; sitePhone = settings.phone;
+    if (new URLSearchParams(location.search).get('settings-preview') === '1') window.addEventListener('message', event => {
+      if (event.origin !== location.origin || event.source !== window.parent || event.data?.type !== 'rawda-settings-preview') return;
+      applySettings(event.data.settings);
+    });
+    window.parent.postMessage({ type: 'rawda-settings-ready' }, location.origin);
+  } catch (e) { console.error('Paramètres indisponibles', e); }
+}
 
 let dishes = [
   {"id": "d0", "category": "Burgers", "name": "King Burger", "description": "Double steak, cheddar, oignons, sauce maison, frites.", "price": 4500, "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=850&q=80", "alt": "King Burger"},
@@ -205,7 +220,7 @@ document.querySelector("#checkout-button").addEventListener("click", async () =>
     const [result] = await rpc("place_order", {_name: name, _phone: phone, _fulfillment: fulfillment, _address: address, _items: lines.map(l => ({id: l.dish.id, quantity: l.quantity}))});
     const recap = lines.map(({dish, quantity}) => `• ${dish.name} x${quantity} — ${money(dish.price * quantity)}`).join("\n");
     const destination = fulfillment === "Livraison" ? `Livraison à : ${address}` : "Retrait sur place";
-    const message = `Bonjour Rawda ! Commande n° ${result.code}\n\n${recap}\n\n${destination}\nNom : ${name} · Tél : ${phone}\nTotal : ${money(result.total)}`;
+    const message = `Bonjour ${siteName} ! Commande n° ${result.code}\n\n${recap}\n\n${destination}\nNom : ${name} · Tél : ${phone}\nTotal : ${money(result.total)}`;
     localStorage.setItem("rawda-last-order", result.code);
     cart.clear(); renderCart(); closeCart();
     document.querySelector("#track-code").value = result.code;
@@ -230,7 +245,7 @@ async function trackOrder(code) {
     const rows = await rpc("track_order", {_code: code});
     if (!rows.length) { out.innerHTML = "<p class=\"form-feedback is-error\">Aucune commande avec ce numéro.</p>"; return; }
     const o = rows[0];
-    if (o.status === "annulee") { out.innerHTML = `<p class="form-feedback is-error">La commande ${o.code} a été annulée. Appelez-nous au +227 88 66 80 20.</p>`; return; }
+    if (o.status === "annulee") { out.innerHTML = `<p class="form-feedback is-error">La commande ${o.code} a été annulée. Appelez-nous au ${escapeHTML(sitePhone)}.</p>`; return; }
     const idx = STEPS.findIndex(s => s[0] === o.status);
     out.innerHTML = `<p class="track-meta">Commande <b>${o.code}</b> · ${escapeHTML(o.fulfillment)} · ${money(o.total)}</p><ol class="track-steps">${STEPS.map((s,i)=>`<li class="${i<=idx?"is-done":""} ${i===idx?"is-current":""}"><span>${i+1}</span>${s[1]}</li>`).join("")}</ol><p class="track-meta">Mis à jour à ${new Date(o.updated_at).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</p>`;
   } catch (e) { out.innerHTML = `<p class="form-feedback is-error">${escapeHTML(e.message)}</p>`; }
@@ -282,6 +297,7 @@ document.querySelector("#contact-form").addEventListener("submit", event => {
 });
 
 renderMenu();
+loadSiteSettings();
 loadDishes();
 renderCart();
 
@@ -290,6 +306,6 @@ if(resaForm){resaForm.addEventListener("submit",e=>{e.preventDefault();const fb=
 if(!resaForm.checkValidity()){fb.textContent="Merci de remplir tous les champs requis.";fb.classList.add("is-error");return;}
 const f=new FormData(resaForm);fb.classList.remove("is-error");
 rpc("create_reservation",{_kind:f.get("type"),_name:f.get("name"),_phone:f.get("phone"),_date:f.get("date"),_time:f.get("time"),_guests:Number(f.get("guests")),_notes:f.get("notes")||""}).then(()=>{fb.textContent="Demande enregistrée ! Nous vous rappelons pour confirmer.";resaForm.reset();}).catch(err=>{fb.textContent=err.message;fb.classList.add("is-error");});
-const msg=`Bonjour Rawda ! ${f.get("type")}\nNom : ${f.get("name")}\nTél : ${f.get("phone")}\nDate : ${f.get("date")} à ${f.get("time")}\nPersonnes : ${f.get("guests")}\nPrécisions : ${f.get("notes")||"-"}`;
+const msg=`Bonjour ${siteName} ! ${f.get("type")}\nNom : ${f.get("name")}\nTél : ${f.get("phone")}\nDate : ${f.get("date")} à ${f.get("time")}\nPersonnes : ${f.get("guests")}\nPrécisions : ${f.get("notes")||"-"}`;
 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
 });}

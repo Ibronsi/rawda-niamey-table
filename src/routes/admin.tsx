@@ -7,6 +7,8 @@ import { LoginCard } from "@/components/admin/LoginCard";
 import { OrdersPanel } from "@/components/admin/OrdersPanel";
 import { ReservationsPanel } from "@/components/admin/ReservationsPanel";
 import { MenuPanel } from "@/components/admin/MenuPanel";
+import { SettingsPanel } from "@/components/admin/SettingsPanel";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -24,7 +26,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "orders" | "reservations" | "menu";
+type Tab = "orders" | "reservations" | "menu" | "settings";
 
 function AdminPage() {
   const [session, setSession] = useState<Session | null>(null);
@@ -65,7 +67,7 @@ function AdminPage() {
       </Shell>
     );
 
-  const tabs: [Tab, string][] = [["orders", "Commandes"], ["reservations", "Réservations"], ["menu", "La carte"]];
+  const tabs: [Tab, string][] = [["orders", "Commandes"], ["reservations", "Réservations"], ["menu", "La carte"], ["settings", "Paramètres du site"]];
   return (
     <Shell
       right={
@@ -77,18 +79,19 @@ function AdminPage() {
     >
       <nav className="mb-8 flex gap-6 overflow-x-auto border-b border-border">
         {tabs.map(([id, label]) => (
-          <button
+          <Button variant="ghost"
             key={id}
             onClick={() => setTab(id)}
             className={`whitespace-nowrap border-b-2 pb-3 text-sm font-medium transition-colors ${tab === id ? "border-accent text-accent" : "border-transparent text-muted-foreground hover:text-foreground"}`}
           >
             {label}
-          </button>
+          </Button>
         ))}
       </nav>
       {tab === "orders" && <OrdersPanel />}
       {tab === "reservations" && <ReservationsPanel />}
       {tab === "menu" && <MenuPanel />}
+      {tab === "settings" && <SettingsPanel />}
     </Shell>
   );
 }
